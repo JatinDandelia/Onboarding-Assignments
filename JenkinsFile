@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('cloning') {
+            steps {
+                git branch: 'cucumber', credentialsId: 'ac32f4ff-10c2-4471-a2d7-c24df7b831b7', url: 'https://github.com/JatinDandelia/Onboarding-Assignments.git'
+                sh 'ls'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'arch -x86_64 cucumber --format junit --out reports'            
+            }
+        }
+    }
+    post {
+    failure {
+        echo "Build was unsuccessful"
+    }
+    success {
+        echo "Build was successful"
+        }
+    }
+}
