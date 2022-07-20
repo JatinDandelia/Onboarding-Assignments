@@ -1,0 +1,11 @@
+---
+
+- name: Configure nginx files
+  become: true
+  template:
+    src: /Users/jatin/Ansible New/roles/configuringNginx/files/flaskapp.conf
+    dest: /etc/nginx/conf.d
+
+- name: nginx restart
+  become: true
+  systemd: name=nginx state=restarted enabled=yes

@@ -1,0 +1,7 @@
+---
+
+- name: Clone the git repo
+  git:
+    repo: 'https://github.com/JatinDandelia/flask-app.git'
+    dest: /home/jatin/flaskApp
+    update: yes

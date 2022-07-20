@@ -1,25 +1,25 @@
 pipeline {
-    agent any
-
+  agent any
     stages {
-        stage('cloning') {
+        stage ('Git Clone') {
             steps {
-                git branch: 'cucumber', credentialsId: 'ac32f4ff-10c2-4471-a2d7-c24df7b831b7', url: 'https://github.com/JatinDandelia/Onboarding-Assignments.git'
-                sh 'ls'
+                git branch: 'main', url: 'https://github.com/JatinDandelia/ansible'
             }
         }
-        stage('build') {
+        stage ('Ansible Playbook') {
             steps {
-                sh 'arch -x86_64 cucumber --format junit --out reports'            
+                script {
+  // With timeout it gives time for the playbook to run and after 2 mins it tests the URL in catch block
+                    try {
+                        timeout(time: 2, unit: "MINUTES"){
+                            sh 'ansible-playbook -i inventory playbook.yml'
+                        }
+                    }
+                    catch (Throwable e) {
+                        sh 'curl "65.1.85.94"'
+                    }
+                }
             }
-        }
-    }
-    post {
-    failure {
-        echo "Build was unsuccessful"
-    }
-    success {
-        echo "Build was successful"
-        }
-    }
+          }
+      }
 }
