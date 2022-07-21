@@ -12,7 +12,7 @@ Before do
   @caps['build'] = 'BStack Build Number 2' # CI/CD job or build name
 
   $driver = Selenium::WebDriver.for(:remote,
-    :url => "https://jatindandelia_qLfxh4:gJCYx1LpA6s1CK4BzSzZ@hub-cloud.browserstack.com/wd/hub",
+    :url => "https://{{user_access_key}}@hub-cloud.browserstack.com/wd/hub",
     :capabilities => @caps)
   $wait = Selenium::WebDriver::Wait.new(:timeout => 20)
 end
