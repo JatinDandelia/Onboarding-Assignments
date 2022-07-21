@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+    stages {
+        stage ('Git Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/JatinDandelia/ansible'
+            }
+        }
+        stage ('Ansible Playbook') {
+            steps {
+                script {
+  // With timeout it gives time for the playbook to run and after 2 mins it tests the URL in catch block
+                    try {
+                        timeout(time: 2, unit: "MINUTES"){
+                            sh 'ansible-playbook -i inventory playbook.yml'
+                        }
+                    }
+                    catch (Throwable e) {
+                        sh 'curl "65.1.85.94"'
+                    }
+                }
+            }
+          }
+      }
+}

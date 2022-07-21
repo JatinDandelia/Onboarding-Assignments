@@ -1,0 +1,21 @@
+---
+
+- name: install packages
+    become: true
+    yum: name={{item}} state=latest
+    with_items:
+      - python3
+      - python3-pip
+      - python-setuptools
+      - git
+      - nginx
+
+- name: Pip setup for flask
+  pip:
+    name:
+      - flask
+       
+- name: Pip setup for gunicorn
+  pip:
+    name:
+      - gunicorn

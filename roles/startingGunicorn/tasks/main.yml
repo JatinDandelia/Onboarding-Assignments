@@ -1,0 +1,13 @@
+---
+
+- name: starting gunicorn
+  become: true
+  command: chdir=/etc/systemd/system ls
+  command: sudo systemctl daemon-reload
+  command: sudo systemctl start gunicorn
+  command: sudo systemctl enable gunicorn
+
+- name: gunicorn run
+  command: ~/.local/bin/gunicorn app:app 
+  args:
+    chdir: '~/flaskApp'

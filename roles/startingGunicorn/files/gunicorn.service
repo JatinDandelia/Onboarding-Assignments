@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn service
+After=network.target
+
+[Service]
+User=jatin
+Group=www-data
+WorkingDirectory=/home/jatin/flaskApp
+ExecStart=.local/lib/python3.7/site-packages/gunicorn  --bind unix:flaskapp.sock -m 007 app:app
+
+[Install]
+WantedBy=multi-user.target
